@@ -8,10 +8,10 @@
 int buzzer = 12;
 
 //Begin - leds
-int Led_blue = 2;
+int Led_blue = 5;
 int Led_green = 4;
-int Led_yellow = 6;
-int Led_red = 8;
+int Led_yellow = 3;
+int Led_red = 2;
 
 // === ultrasonic Pin ===
 int triggerPin = 10;

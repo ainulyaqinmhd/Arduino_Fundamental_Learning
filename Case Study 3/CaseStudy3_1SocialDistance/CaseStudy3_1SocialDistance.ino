@@ -1,10 +1,4 @@
 
-// ===== library declaration =====
-#include <Wire.h> 
-#include <LiquidCrystal_I2C.h>
-
-
-
 // ===== variable pin declaration =====
 // === pin LED ===
 int buzzer = 12;
@@ -21,11 +15,6 @@ int echoPin = 11;
 
 int inches = 0;
 float cm = 0;
-
-// === LCD Pin ===
-// Set the LCD address to 0x27 for a 16 chars and 2 line display
-LiquidCrystal_I2C lcd(32, 16, 2);
-
 
 // readUltraSonic function
 long readUltrasonicDistance(int triggerPin, int echoPin) // Trig & Echo responsible function
@@ -50,35 +39,8 @@ long readUltrasonicDistance(int triggerPin, int echoPin) // Trig & Echo responsi
   return pulseIn(echoPin, HIGH);
 }
 
-
-
-void setup() {
-  // put your setup code here, to run once:
-  // === LED pinSETUP ===
-  pinMode(Led_blue, OUTPUT);
-  pinMode(Led_green, OUTPUT);
-  pinMode(Led_yellow, OUTPUT);
-  pinMode(Led_red, OUTPUT);
-  //buzzer
-  // === Buzzer pinSETUP ===
-  pinMode(buzzer, OUTPUT);
-
-
-  // === LCD pinSETUP ===
-    // initialize the LCD
-  lcd.begin(16,2);
-  lcd.init();
-  // Turn on the blacklight and print a message.
-  lcd.backlight();
-  Serial.begin(9600);
-  lcd.setCursor(0, 0);
-  lcd.print("WORKSHOP");
-
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-
+void loop()
+{
   // signal measurement in cm
   cm = 0.01723 * readUltrasonicDistance(10,11);
   // cm to inch conversion
@@ -91,12 +53,9 @@ range 333
 Number of LEDs 8
 */
   // begin - conditions LEDS
-  if ((cm >= 3) && (cm <= 86)) {
+   if ((cm >= 3) && (cm <= 86)) {
     
    // === set cursor (row, column) ===
-    lcd.clear();
-    lcd.setCursor(0, 1);
-    lcd.print("TOO CLOSE!!");
     Serial.print("RED LIGHT ON");
     tone(12, 1000); // Send 1KHz sound signal...
     delay(1000);        // ...for 1 sec
@@ -110,9 +69,6 @@ Number of LEDs 8
   
   else if ((cm >= 87) && (cm <= 170)) {
      // === set cursor (row, column) ===
-    lcd.clear();
-    lcd.setCursor(0, 1);
-    lcd.print("IT IS APPROACHING!");
     Serial.print("YELLOW LIGHT ON");
     tone(12, 800); // Send 1KHz sound signal...
     delay(1000);        // ...for 1 sec
@@ -126,9 +82,6 @@ Number of LEDs 8
   
   else if ((cm >= 171) && (cm <= 253)) {
     // === set cursor (row, column) ===
-    lcd.clear();
-    lcd.setCursor(0, 1);
-    lcd.print("NORMAL DISTANCE");
     Serial.print("GREEN LIGHT ON");
     tone(12, 500); // Send 1KHz sound signal...
     delay(1000);        // ...for 1 sec
@@ -142,9 +95,6 @@ Number of LEDs 8
   
   else if ((cm >= 254) && (cm <= 336)) {
     // === set cursor (row, column) ===
-    lcd.clear();
-    lcd.setCursor(2, 0);
-    lcd.print("SAFE DISTANCE");
     tone(12, 100); // Send 1KHz sound signal...
     delay(1000);        // ...for 1 sec
     noTone(12);
@@ -158,9 +108,6 @@ Number of LEDs 8
   
   else {
     // === set cursor (row, column) ===
-    lcd.clear();
-    lcd.setCursor(0, 1);
-    lcd.print("NO OBJECT DETECTED");
     Serial.print("NO LIGHTS TRIGGERED");
     digitalWrite(Led_red, HIGH);
     digitalWrite(Led_yellow, HIGH);
@@ -176,6 +123,4 @@ Number of LEDs 8
   Serial.print(cm);
   Serial.println("cm");
   delay(1000); // wait 100 milliseconds
-
-
 }

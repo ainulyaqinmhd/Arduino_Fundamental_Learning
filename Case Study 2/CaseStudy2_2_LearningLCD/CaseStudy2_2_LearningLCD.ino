@@ -26,7 +26,7 @@ void setup(){
 }
 
 void loop(){
-  lcd.setCursor(0, 0);
+  lcd.setCursor(6, 0);
   lcd.print(staticMessage);
   scrollMessage(1, scrollingMessage, 250, totalColumns);
 }

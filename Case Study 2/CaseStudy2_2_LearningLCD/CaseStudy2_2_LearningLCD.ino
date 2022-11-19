@@ -10,7 +10,7 @@ String scrollingMessage = "Welcome to National Taipei University of Technology! 
 
 void scrollMessage(int row, String message, int delayTime, int totalColumns) {
   for (int i=0; i < totalColumns; i++) {
-    message = " " + message;  
+    message = " " + message;  //before after space
   } 
   message = message + " "; 
   for (int position = 0; position < message.length(); position++) {
